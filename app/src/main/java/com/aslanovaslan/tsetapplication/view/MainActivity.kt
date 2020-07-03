@@ -62,15 +62,13 @@ val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityMana
             }
             Toast.makeText(this, "internet yoxdu", Toast.LENGTH_SHORT).show()
         }
-
-
     }
 
     private fun isNetworkAviable(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
-        return if (connectivityManager is ConnectivityManager) {
-            val networkInfo = connectivityManager.isActiveNetworkMetered
-            networkInfo
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (cm is ConnectivityManager) {
+            val activeNetwork = cm.isActiveNetworkMetered
+            activeNetwork
         } else false
 
     }
@@ -166,13 +164,13 @@ val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityMana
             linearLayout.visibility = View.GONE
             nextFragment()
             EventBus.getDefault().postSticky(EventBusNews.SendNewsData(noinline, backColor))
-            Toast.makeText(this, "internet var", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "internet var", Toast.LENGTH_SHORT).show()
         } else {
             containerFragmentDetalis.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
             nextFragment()
             EventBus.getDefault().postSticky(EventBusNews.SendNewsData(noinline, backColor))
-            Toast.makeText(this, "internet yoxdu", Toast.LENGTH_SHORT).show()
+          //  Toast.makeText(this, "internet yoxdu", Toast.LENGTH_SHORT).show()
         }
     }
 }

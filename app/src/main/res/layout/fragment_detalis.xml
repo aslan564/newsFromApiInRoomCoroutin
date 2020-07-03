@@ -16,6 +16,8 @@
         android:layout_marginEnd="24dp"
         android:text="@string/news_header"
         android:textSize="20sp"
+        android:background="@drawable/custom_tv_background"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFrNewsCategory" />
@@ -31,6 +33,7 @@
         android:gravity="start"
         android:maxLines="15"
         android:textColor="#000"
+        android:background="@drawable/custom_tv_background"
         android:nestedScrollingEnabled="true"
         android:padding="5sp"
         android:text="@string/news_description"
@@ -46,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/news_url"
+        android:background="@drawable/custom_tv_background"
         app:layout_constraintEnd_toEndOf="@+id/tvFrNewsDescription"
         app:layout_constraintStart_toStartOf="@+id/tvFrNewsDescription"
         app:layout_constraintTop_toBottomOf="@+id/tvFrNewsDescription" />
@@ -56,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:padding="3sp"
+        android:background="@drawable/custom_tv_background"
         android:text="@string/category_name"
         android:textAllCaps="true"
         android:textSize="19sp"
@@ -70,6 +75,8 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:padding="3sp"
+        android:background="@drawable/custom_tv_background"
+
         android:text="@string/country_name"
         android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,13 +85,16 @@
 
     <TextView
         android:id="@+id/tvFrLanguageNews"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="24dp"
+        android:background="@drawable/custom_tv_background"
+        android:gravity="end"
         android:padding="3sp"
         android:text="@string/news_language"
         android:textAlignment="textEnd"
         app:layout_constraintBottom_toTopOf="@+id/tvFrCountryName"
-        app:layout_constraintEnd_toEndOf="@+id/tvFrCountryName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvFrCountryName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

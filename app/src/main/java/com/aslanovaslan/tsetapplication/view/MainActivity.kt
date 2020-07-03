@@ -2,6 +2,7 @@ package com.aslanovaslan.tsetapplication.view
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
@@ -36,17 +37,23 @@ class MainActivity : AppCompatActivity(), NewsAdapter.onclikListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       /* val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val isMetered = cm.isActiveNetworkMetered
+/*
+val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+         val isMetered = cm.isActiveNetworkMetered
+        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork= cm.activeNetwork
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 */
-        if (isNetworkAviable()){
+
+
+        if (isNetworkAviable()) {
             loadData()
             Toast.makeText(this, "internet var", Toast.LENGTH_SHORT).show()
-        }else{
-            uiScope.launch (Dispatchers.IO){
+        } else {
+            uiScope.launch(Dispatchers.IO) {
                 val dataBaseInfo = DatabaseNews(this@MainActivity).getNewsDao().getAllNews()
                 newsFromApi = ArrayList(dataBaseInfo)
-                launch(Dispatchers.Main){
+                launch(Dispatchers.Main) {
                     val layoutManager = LinearLayoutManager(this@MainActivity)
                     recyclerViewNewsArticles.layoutManager = layoutManager
                     newsAdapter = NewsAdapter(newsFromApi, this@MainActivity)
@@ -58,14 +65,16 @@ class MainActivity : AppCompatActivity(), NewsAdapter.onclikListener {
 
 
     }
-private fun isNetworkAviable():Boolean{
-    val connectivityManager=getSystemService(Context.CONNECTIVITY_SERVICE)
-   return if (connectivityManager is ConnectivityManager) {
-        val networkInfo=connectivityManager.isActiveNetworkMetered
-        networkInfo
-    }else false
 
-}
+    private fun isNetworkAviable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo = connectivityManager.isActiveNetworkMetered
+            networkInfo
+        } else false
+
+    }
+
     private fun loadData() {
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
@@ -101,13 +110,13 @@ private fun isNetworkAviable():Boolean{
 
     }
 
-  /*  fun saveDatabaseNews(): List<NewsArticles>? {
-        var dataBaseInfo: List<NewsArticles>? = null
-        uiScope.launch (Dispatchers.IO){
-              dataBaseInfo = DatabaseNews(this@MainActivity).getNewsDao().getAllNews()
-        }
-        return  dataBaseInfo
-    }*/
+    /*  fun saveDatabaseNews(): List<NewsArticles>? {
+          var dataBaseInfo: List<NewsArticles>? = null
+          uiScope.launch (Dispatchers.IO){
+                dataBaseInfo = DatabaseNews(this@MainActivity).getNewsDao().getAllNews()
+          }
+          return  dataBaseInfo
+      }*/
     private fun saveNewsDatabase(newsArticles: NewsArticles) {
         class SaveNewsDatabase : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg params: Void?): Void? {
@@ -151,18 +160,18 @@ private fun isNetworkAviable():Boolean{
     }
 
     override fun onClickListener(noinline: NewsArticles, backColor: String) {
-        if (isNetworkAviable()){
+        if (isNetworkAviable()) {
             saveNewsDatabase(noinline)
             containerFragmentDetalis.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
             nextFragment()
-            EventBus.getDefault().postSticky(EventBusNews.SendNewsData(noinline,backColor))
+            EventBus.getDefault().postSticky(EventBusNews.SendNewsData(noinline, backColor))
             Toast.makeText(this, "internet var", Toast.LENGTH_SHORT).show()
-        }else{
+        } else {
             containerFragmentDetalis.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
             nextFragment()
-            EventBus.getDefault().postSticky(EventBusNews.SendNewsData(noinline,backColor))
+            EventBus.getDefault().postSticky(EventBusNews.SendNewsData(noinline, backColor))
             Toast.makeText(this, "internet yoxdu", Toast.LENGTH_SHORT).show()
         }
     }

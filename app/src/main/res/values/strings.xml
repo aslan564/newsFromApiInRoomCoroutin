@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">News Web Room</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="news_category">News Category</string>
+    <string name="news_name">News Name</string>
+    <string name="country_name">Country Name</string>
+    <string name="category_name">Category Name</string>
+    <string name="news_url">News Url</string>
+    <string name="news_description">News Description</string>
+    <string name="news_header">News Header</string>
+    <string name="news_language">News Language</string>
+</resources>
